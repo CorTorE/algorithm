@@ -1,0 +1,42 @@
+name: Auto-merge PRs after one week
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # 매일 자정에 실행
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check PR age and merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # 모든 열린 PR 가져오기
+          prs=$(gh pr list --json number,createdAt,mergeStateStatus --state open)
+          
+          # 각 PR 확인
+          echo "$prs" | jq -c '.[]' | while read pr; do
+            number=$(echo $pr | jq -r .number)
+            created_at=$(echo $pr | jq -r .createdAt)
+            merge_state=$(echo $pr | jq -r .mergeStateStatus)
+            
+            # PR 나이 계산 (일 단위)
+            age=$(( ( $(date +%s) - $(date -d "$created_at" +%s) ) / 86400 ))
+            
+            # 7일 이상 되었고 병합 가능한 상태인지 확인
+            if [ $age -ge 7 ] && [ "$merge_state" == "CLEAN" ]; then
+              echo "Merging PR #$number (age: $age days)"
+              gh pr merge $number --auto --merge
+            else
+              echo "PR #$number is not ready for auto-merge (age: $age days, state: $merge_state)"
+            fi
+          done
