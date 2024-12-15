@@ -23,11 +23,9 @@ var arrayRankTransform = function (arr) {
   let rank = 1;
   for (let i = 0; i < sortArr.length; i++) {
     if (i !== 0 && sortArr[i] !== sortArr[i - 1]) {
-      rank += 1;
-      sortMap.set(sortArr[i], rank);
-    } else {
-      sortMap.set(sortArr[i], rank);
+      rank++;
     }
+    sortMap.set(sortArr[i], rank);
   }
   return arr.map((cur) => sortMap.get(cur));
 };
