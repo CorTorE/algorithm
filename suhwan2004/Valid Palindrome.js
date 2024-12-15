@@ -26,10 +26,10 @@ var isPalindrome = function (s) {
 
     if (sChar !== eChar) {
       return false;
-    } else {
-      start++;
-      end--;
     }
+
+    start++;
+    end--;
   }
 
   return true;
