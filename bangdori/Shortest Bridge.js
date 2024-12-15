@@ -29,10 +29,7 @@ var shortestBridge = function (grid) {
       const nextCol = col + dy;
 
       if (
-        nextRow >= 0 &&
-        nextRow < rows &&
-        nextCol >= 0 &&
-        nextCol < cols &&
+        isValidCoords(nextRow, nextCol) &&
         grid[nextRow][nextCol] === ISLAND
       ) {
         exploreIslandDFS(nextRow, nextCol);
@@ -56,12 +53,7 @@ var shortestBridge = function (grid) {
           const nextRow = row + dx;
           const nextCol = col + dy;
 
-          if (
-            nextRow >= 0 &&
-            nextRow < rows &&
-            nextCol >= 0 &&
-            nextCol < cols
-          ) {
+          if (isValidCoords(nextRow, nextCol)) {
             if (grid[nextRow][nextCol] === WATER) {
               queue.push([nextRow, nextCol]);
               grid[nextRow][nextCol] = distance;
@@ -80,6 +72,9 @@ var shortestBridge = function (grid) {
 
     return 1;
   };
+
+  const isValidCoords = (row, col) =>
+    row >= 0 && row < rows && col >= 0 && col < cols;
 
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
