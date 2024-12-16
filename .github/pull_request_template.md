@@ -1,10 +1,15 @@
 ## 문제
 
-| Type         | Info |
-| :----------- | :--- |
-| **Platform** |      |
-| **Level**    |      |
-| **Link**     |      |
+| Type                 | Info |
+| :------------------- | :--- |
+| **Time Complexity**  |      |
+| **Space Complexity** |      |
+| **Algorithm**        |      |
+| **Data Structure**   |      |
+
+## Constraints
+
+## Edge Case
 
 ## 풀이
 
