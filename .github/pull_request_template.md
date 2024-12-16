@@ -6,8 +6,10 @@
 | **Space Complexity** |      |
 | **Algorithm**        |      |
 | **Data Structure**   |      |
-| **Constraints**      |      |
-| **Edge Case**        |      |
+
+## Constraints
+
+## Edge Case
 
 ## 풀이
 
