@@ -35,7 +35,7 @@ jobs:
             # 7일 이상 되었고 병합 가능한 상태인지 확인
             if [ $age -ge 7 ] && [ "$merge_state" == "CLEAN" ]; then
               echo "Merging PR #$number (age: $age days)"
-              gh pr merge $number --auto --merge
+              gh pr merge $number --auto --squash
             else
               echo "PR #$number is not ready for auto-merge (age: $age days, state: $merge_state)"
             fi
