@@ -29,12 +29,7 @@ var mergeTwoLists = function (list1, list2) {
     list = list.next;
   }
 
-  if (!list1) {
-    list.next = list2;
-  }
-  if (!list2) {
-    list.next = list1;
-  }
+  list.next = list1 || list2;
 
   return head.next;
 };
